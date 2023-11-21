@@ -29,16 +29,16 @@ while True:
             return unique_id
 
         def addMenuItem():
-            name = input("Enter the name of the menu item: ")
+            name = input('enter the name of the menu item: ')
 
-            description = input("Enter the description of the item: ")
+            description = input('enter the description of the item: ')
             
             while True:
                 try:
-                    price = float(input("Enter the price of the item: "))
+                    price = float(input('enter the price of the item: '))
                     break
                 except ValueError:
-                    print("Invalid input. Please enter a valid price.")
+                    print('invalid input. please enter a valid price.')
 
             unique_id = uniqueId()
             
@@ -62,7 +62,9 @@ while True:
         for i in menu:
             if nameSearch == menu[i]['name']:
                 isExisted = True
-                # print(f"unique Id:{unique_id} ")
+                print('the search result for ',nameSearch, ':')
+                print('_'*20)
+                print(f"id: {i} ")
                 print(f"name: {menu[i]['name']}")
                 print(f"description: {menu[i]['description']}")
                 print(f"price: {menu[i]['price']}")
@@ -75,11 +77,86 @@ while True:
 
         
     elif choice == '3':
-        pass
+        while True:
+             print('__'*20)
+             print('1 - delete 1 item')
+             print('2 - delete all item')
+             choice = input('enter your choice')
+             if choice == '1':
+                 itemId = input('enter the id of the menu item to delete: ')
+                 if itemId in menu:
+                     del menu[itemId]
+                     print('deleted successflly.')
+                 else:
+                     print('item id not found.')
+
+             elif choice == '2':
+                 if not menu:
+                     print('menu is already empty.')
+                 else:
+                     menu.clear()
+                     print('all menu item deleted successflly.')
+                 
+                 
+                 
+        
     elif choice == '4':
-        pass
+        if not menu:
+            print('menu items is already empty.')
+        else:
+            print('list of all menu items:')
+            for itemId, itemDetails in menu.items():
+                print('_'*20)
+                print(f"iD: {itemId}")
+                print(f"name: {itemDetails['name']}")
+                print(f"description: {itemDetails['description']}")
+                print(f"price: {itemDetails['price']}")
+        
+
+
     elif choice == '5':
-        pass
+        if not menu:
+            print('The menu is empty. Cannot place an order.')
+        else:
+            customerName = input('Enter your name: ')
+            phoneNumber = input('Enter your phone number: ')
+
+        # Ask for the number of items the customer wants to order
+        while True:
+            try:
+                numOrders = int(input('Enter the number of items you want to order: '))
+                if numOrders > 0:
+                    break
+                else:
+                    print('Please enter a valid number greater than 0.')
+            except ValueError:
+                print('Invalid input. Please enter a valid number.')
+
+        orderItems = []
+        for _ in range(numOrders):
+            itemId = input('Enter the ID of the item: ')
+
+            if itemId in menu:
+                orderItems.append({
+                    'id': itemId,
+                    'name': menu[itemId]['name'],
+                    'price': menu[itemId]['price']
+                })
+                print(f'{menu[itemId]["name"]} added to your order.')
+            else:
+                print(f'Item with ID {itemId} not found in the menu.')
+
+        if orderItems:
+            order = {
+                'customer name': customerName,
+                'phone number': phoneNumber,
+                'items': orderItems
+            }
+            print('Order placed successfully!')
+        else:
+            print('No items added to the order.')
+    
+
     elif choice == '6':
         pass
     elif choice == '7':
