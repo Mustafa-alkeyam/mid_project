@@ -116,25 +116,24 @@ while True:
 
     elif choice == '5':
         if not menu:
-            print('The menu is empty. Cannot place an order.')
+            print('the menu is empty. Cannot place an order.')
         else:
-            customerName = input('Enter your name: ')
-            phoneNumber = input('Enter your phone number: ')
+            customerName = input('enter your name: ')
+            phoneNumber = input('enter your phone number: ')
 
-        # Ask for the number of items the customer wants to order
         while True:
             try:
-                numOrders = int(input('Enter the number of items you want to order: '))
+                numOrders = int(input('enter the number of items order: '))
                 if numOrders > 0:
                     break
-                else:
-                    print('Please enter a valid number greater than 0.')
-            except ValueError:
-                print('Invalid input. Please enter a valid number.')
+            
+            except Exception as e:
+                print('please enter a valid number')
+                continue
 
         orderItems = []
-        for _ in range(numOrders):
-            itemId = input('Enter the ID of the item: ')
+        for i in range(numOrders):
+            itemId = input('enter the ID of the item: ')
 
             if itemId in menu:
                 orderItems.append({
@@ -144,7 +143,7 @@ while True:
                 })
                 print(f'{menu[itemId]["name"]} added to your order.')
             else:
-                print(f'Item with ID {itemId} not found in the menu.')
+                print(f'item with ID {itemId} not found in the menu.')
 
         if orderItems:
             order = {
@@ -152,9 +151,9 @@ while True:
                 'phone number': phoneNumber,
                 'items': orderItems
             }
-            print('Order placed successfully!')
+            print('order placed successfully!')
         else:
-            print('No items added to the order.')
+            print('no items added to the order.')
     
 
     elif choice == '6':
